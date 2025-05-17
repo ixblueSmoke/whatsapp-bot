@@ -1,0 +1,31 @@
+# .gitignore
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+*.env
+
+# Environments
+venv/
+
+# Byte-compiled
+*.pyo
+*.pyd
+*.pdb
+
+# SQLite DB files
+*.db
+
+# System
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# VSCode
+.vscode/
+
+// filepath: c:\Users\ossas\whatsapp-bot\.env
+# Example content
+API_KEY=your_api_key
