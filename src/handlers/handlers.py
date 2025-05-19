@@ -5,7 +5,7 @@ from models.nlp import detect_language, classify_intent
 from models.responses import get_response
 from models.context import update_user_intent, get_last_intent
 
-def bot():
+def bot(request):
     try:
         from_number = request.values.get('From', '')
         incoming_message = request.values.get('Body', '').strip()
