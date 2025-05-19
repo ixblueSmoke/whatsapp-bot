@@ -41,7 +41,7 @@ client = Client(account_sid, auth_token)
 # Register routes
 @app.route("/webhook", methods=["POST"])
 @limiter.limit("5 per minute")
-def bot_route(request):
+def bot_route():
     try:
         return bot(request)
     except Exception as e:
