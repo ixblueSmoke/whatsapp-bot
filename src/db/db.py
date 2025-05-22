@@ -11,6 +11,14 @@ def init_db():
             phone TEXT NOT NULL UNIQUE
         )
     ''')
+    # Add this block to create user_context table if it doesn't exist
+    cursor.execute('''
+        CREATE TABLE IF NOT EXISTS user_context (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            phone TEXT NOT NULL UNIQUE,
+            context TEXT
+        )
+    ''')
     conn.commit()
     conn.close()
 
