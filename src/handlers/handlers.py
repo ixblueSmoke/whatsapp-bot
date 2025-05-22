@@ -4,6 +4,7 @@ from flask import jsonify
 from models.nlp import detect_language, classify_intent
 from models.responses import get_response
 from models.context import update_user_intent, get_last_intent
+from twilio.twiml.messaging_response import MessagingResponse
 
 def bot(request):
     try:
@@ -25,8 +26,6 @@ def bot(request):
 
         # توليد الرد بناء على النية الحالية والسياق السابق
         base_response = get_response(intent, lang)
-
-        # إضافة متابعة ذكية في حال تكرار الاستفسار أو وجود سياق سابق
         if last_intent and last_intent != intent:
             followup = {
                 "ar": f" (سابقًا سألت عن: {last_intent})",
@@ -38,4 +37,6 @@ def bot(request):
 
     except Exception as e:
         logging.error(f"Error in bot handler: {e}")
-        return jsonify({"error": "Something went wrong"}), 500
+        resp = MessagingResponse()
+        resp.message("حدث خطأ ما! (Something went wrong)")
+        return str(resp)
