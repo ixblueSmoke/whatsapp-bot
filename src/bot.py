@@ -9,10 +9,12 @@ from twilio.rest import Client
 from apscheduler.schedulers.background import BackgroundScheduler
 
 # Local imports
-from config import (account_sid, auth_token, twilio_whatsapp_number,
-                    your_whatsapp_number, debug_mode)
+from config import (
+    account_sid, auth_token, twilio_whatsapp_number,
+    your_whatsapp_number, debug_mode
+)
 from handlers.handlers import bot
-from db.db import init_db, ensure_employees_db
+from db.db import init_db
 from reminders.reminders import send_reminder
 
 # Initialize Flask app
@@ -56,6 +58,7 @@ atexit.register(lambda: scheduler.shutdown())
 
 # Application entry point
 if __name__ == "__main__":
+    logging.info("Initializing database...")
     init_db()
-    ensure_employees_db()
+    logging.info("Starting Flask server...")
     app.run(debug=debug_mode, host="0.0.0.0", port=5000)
