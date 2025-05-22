@@ -1,38 +1,53 @@
 import sqlite3
+import logging
 
-# Initialize the database connection
+DB_NAME = 'employees.db'
+
+# Initialize the database with all required tables
 def init_db():
-    conn = sqlite3.connect('employees.db')
-    cursor = conn.cursor()
-    cursor.execute('''
-        CREATE TABLE IF NOT EXISTS employees (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            name TEXT NOT NULL,
-            phone TEXT NOT NULL UNIQUE
-        )
-    ''')
-    # Add this block to create user_context table if it doesn't exist
-    cursor.execute('''
-        CREATE TABLE IF NOT EXISTS user_context (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            phone TEXT NOT NULL UNIQUE,
-            context TEXT
-        )
-    ''')
-    conn.commit()
-    conn.close()
+    try:
+        conn = sqlite3.connect(DB_NAME)
+        cursor = conn.cursor()
 
-# Add a new employee
+        # Table for storing employees
+        cursor.execute('''
+            CREATE TABLE IF NOT EXISTS employees (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                name TEXT NOT NULL,
+                phone TEXT NOT NULL UNIQUE
+            )
+        ''')
+
+        # Table for storing user context
+        cursor.execute('''
+            CREATE TABLE IF NOT EXISTS user_context (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                phone TEXT NOT NULL UNIQUE,
+                context TEXT
+            )
+        ''')
+
+        conn.commit()
+        logging.info("Database initialized successfully.")
+    except Exception as e:
+        logging.error(f"Database initialization failed: {e}")
+    finally:
+        conn.close()
+
+# Optional: Add a new employee (used somewhere else maybe)
 def add_employee(name, phone):
-    conn = sqlite3.connect('employees.db')
-    cursor = conn.cursor()
-    cursor.execute('''
-        INSERT INTO employees (name, phone)
-        VALUES (?, ?)
-    ''', (name, phone))
-    conn.commit()
-    conn.close()
-
-# Ensure employees table exists (for compatibility with your bot.py)
-def ensure_employees_db():
-    init_db()
+    try:
+        conn = sqlite3.connect(DB_NAME)
+        cursor = conn.cursor()
+        cursor.execute('''
+            INSERT INTO employees (name, phone)
+            VALUES (?, ?)
+        ''', (name, phone))
+        conn.commit()
+        logging.info(f"Employee {name} added.")
+    except sqlite3.IntegrityError:
+        logging.warning("Employee already exists.")
+    except Exception as e:
+        logging.error(f"Failed to add employee: {e}")
+    finally:
+        conn.close()
