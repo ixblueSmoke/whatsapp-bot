@@ -33,7 +33,10 @@ def bot(request):
             }[lang]
             base_response += followup
 
-        return jsonify({"message": base_response})
+        # رد فعلي عبر Twilio
+        resp = MessagingResponse()
+        resp.message(base_response)
+        return str(resp)
 
     except Exception as e:
         logging.error(f"Error in bot handler: {e}")
