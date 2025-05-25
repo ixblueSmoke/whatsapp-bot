@@ -2,7 +2,8 @@ import sqlite3
 import logging
 from datetime import datetime
 
-DB_NAME = "conversations.db"
+# توحيد اسم قاعدة البيانات مع باقي المشروع
+DB_NAME = "employees.db"
 
 def init_context_db():
     try:
@@ -16,10 +17,12 @@ def init_context_db():
                 )
             ''')
             conn.commit()
+            logging.info("user_context table checked/created.")
     except Exception as e:
         logging.error(f"Failed to initialize user_context table: {e}")
 
 def update_user_intent(user_number: str, intent: str):
+    init_context_db()
     try:
         with sqlite3.connect(DB_NAME) as conn:
             c = conn.cursor()
@@ -35,6 +38,7 @@ def update_user_intent(user_number: str, intent: str):
         logging.error(f"Error updating user context: {e}")
 
 def get_last_intent(user_number: str) -> str:
+    init_context_db()
     try:
         with sqlite3.connect(DB_NAME) as conn:
             c = conn.cursor()
