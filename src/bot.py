@@ -153,35 +153,31 @@ def bot_route():
             # English catalogs
             elif button_id == "marbele_en":
                 send_catalog(user_number, "https://whatsapp-bot-t7o1.onrender.com/static/catalog_marble.pdf", "📎 Marble Catalog")
-                return_to_main_menu(user_number)
                 return jsonify({"status": "catalog sent"}), 200
             elif button_id == "chipboard_en":
                 send_catalog(user_number, "https://whatsapp-bot-t7o1.onrender.com/static/catalog_wood.pdf", "📎 Wood Catalog")
-                return_to_main_menu(user_number)
                 return jsonify({"status": "catalog sent"}), 200
             elif button_id == "profile_en":
                 send_catalog(user_number, "https://whatsapp-bot-t7o1.onrender.com/static/catalog_profile.pdf", "📎 Profile Catalog")
-                return_to_main_menu(user_number)
                 return jsonify({"status": "catalog sent"}), 200
             elif button_id == "rizen_en":
                 send_catalog(user_number, "https://whatsapp-bot-t7o1.onrender.com/static/catalog_resin.pdf", "📎 Resin Catalog")
-                return_to_main_menu(user_number)
                 return jsonify({"status": "catalog sent"}), 200
             elif button_id == "more_en":
                 send_template(user_number, "HX6842017435eb051255d2c21dd1471e64")
                 return jsonify({"status": "more catalogs sent"}), 200
             elif button_id == "pu_stone":
                 send_catalog(user_number, "https://whatsapp-bot-t7o1.onrender.com/static/catalog_pustone.pdf", "📎 PU Stone Catalog")
-                return_to_main_menu(user_number)
                 return jsonify({"status": "catalog sent"}), 200
             elif button_id == "match_en":
                 send_catalog(user_number, "https://whatsapp-bot-t7o1.onrender.com/static/catalog_openbook.pdf", "📎 Open Book Catalog")
-                return_to_main_menu(user_number)
                 return jsonify({"status": "catalog sent"}), 200
             elif button_id == "3D_en":
                 send_catalog(user_number, "https://whatsapp-bot-t7o1.onrender.com/static/catalog_3dprint.pdf", "📎 3D Printer Catalog")
-                return_to_main_menu(user_number)
                 return jsonify({"status": "catalog sent"}), 200
+            elif button_id == "fallback_en":
+                send_template(user_number, "HXcfcc075b1f58ed102944c571beb068c0")
+                return jsonify({"status": "back to catalogs"}), 200
 
         return jsonify({"message": "No button detected"}), 200
 
