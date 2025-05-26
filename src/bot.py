@@ -7,10 +7,8 @@ import atexit
 from twilio.rest import Client
 
 from config import account_sid, auth_token, twilio_whatsapp_number, your_whatsapp_number, debug_mode
-from db.db import init_db, ensure_employees_db
+from db.db import init_db
 from db.language_context import get_user_language, set_user_language  # You need to implement these
-from reminders.reminders import send_reminder
-from handlers.handlers_guided import send_catalog, send_text_reply
 
 app = Flask(__name__)
 
@@ -170,11 +168,18 @@ def serve_static_file(filename):
     return send_from_directory('static', filename)
 
 scheduler = BackgroundScheduler()
-scheduler.add_job(send_reminder, 'interval', hours=1)
 scheduler.start()
 atexit.register(lambda: scheduler.shutdown())
 
+def send_text_reply(user_number, message):
+    client = Client(account_sid, auth_token)
+    client.messages.create(
+        from_='whatsapp:' + twilio_whatsapp_number,
+        to='whatsapp:' + user_number,
+        body=message
+    )
+
+
 if __name__ == "__main__":
     init_db()
-    ensure_employees_db()
     app.run(debug=debug_mode, host="0.0.0.0", port=5000)

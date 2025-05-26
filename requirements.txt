@@ -5,8 +5,4 @@ APScheduler==3.10.1
 python-decouple
 joblib==1.5.0
 langdetect==1.0.9
-<<<<<<< HEAD
 scikit-learn==1.6.1
-=======
-scikit-learn==1.6.1
->>>>>>> 840b5dce511ec7389ed8ffd7ee3493e689f467a2

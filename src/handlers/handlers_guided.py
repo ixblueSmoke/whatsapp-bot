@@ -3,7 +3,9 @@ import json
 import requests
 from flask import request, Response , Request
 from config import account_sid, auth_token, twilio_whatsapp_number
-from db import init_db, set_user_language, get_user_language
+from db.db import init_db
+from db.language_context import set_user_language, get_user_language
+
 
 TWILIO_API_URL = f"https://api.twilio.com/2010-04-01/Accounts/{account_sid}/Messages.json"
 
