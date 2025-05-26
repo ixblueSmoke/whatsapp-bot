@@ -60,6 +60,7 @@ def return_to_main_menu(user_number):
     lang = get_user_language(user_number)
     if lang == "ar":
         send_template(user_number, "HXad63fa26ead4384c954e19572027a72b")
+        
     else:
         send_template(user_number, "HXcfcc075b1f58ed102944c571beb068c0")
 
@@ -120,37 +121,30 @@ def bot_route():
             # Arabic catalogs
             elif button_id == "marbele_ar":
                 send_catalog(user_number, "https://whatsapp-bot-t7o1.onrender.com/static/SMA_Marble.pdf", "📎 كتالوج بديل الرخام")
-                return_to_main_menu(user_number)
                 return jsonify({"status": "catalog sent"}), 200
             elif button_id == "chipboard_ar":
                 send_catalog(user_number, "https://whatsapp-bot-t7o1.onrender.com/static/Chipboard_cat.pdf", "📎 كتالوج بديل الخشب")
-                return_to_main_menu(user_number)
                 return jsonify({"status": "catalog sent"}), 200
             elif button_id == "3D_ar":
                 send_catalog(user_number, "https://whatsapp-bot-t7o1.onrender.com/static/Private_Sma_Cat.pdf", "📎 كتالوج الطباعة ثلاثية الأبعاد")
-                return_to_main_menu(user_number)
                 return jsonify({"status": "catalog sent"}), 200
             elif button_id == "rizen_ar":
                 send_catalog(user_number, "https://whatsapp-bot-t7o1.onrender.com/static/R_SMA.pdf", "📎 كتالوج الريزين")
-                return_to_main_menu(user_number)
                 return jsonify({"status": "catalog sent"}), 200
             elif button_id == "more_catalogs_ar":
                 send_template(user_number, "HX9f5f20bb8ef61d23d9b32afe1a242e90")
                 return jsonify({"status": "more catalogs sent"}), 200
             elif button_id == "pu_ar":
                 send_catalog(user_number, "https://whatsapp-bot-t7o1.onrender.com/static/PU_stone.pdf", "📎 كتالوج بديل الحجر PU")
-                return_to_main_menu(user_number)
                 return jsonify({"status": "catalog sent"}), 200
             elif button_id == "match_ar":
                 send_catalog(user_number, "https://whatsapp-bot-t7o1.onrender.com/static/OB_SMA.pdf", "📎 كتالوج الأوبن بوك")
-                return_to_main_menu(user_number)
                 return jsonify({"status": "catalog sent"}), 200
             elif button_id == "profile_ar":
                 send_catalog(user_number, "https://whatsapp-bot-t7o1.onrender.com/static/profile_cat.pdf", "📎 كتالوج البروفايل")
-                return_to_main_menu(user_number)
                 return jsonify({"status": "catalog sent"}), 200
 
-            # English catalogs
+            # English catalogs (same logic as Arabic)
             elif button_id == "marbele_en":
                 send_catalog(user_number, "https://whatsapp-bot-t7o1.onrender.com/static/catalog_marble.pdf", "📎 Marble Catalog")
                 return jsonify({"status": "catalog sent"}), 200
