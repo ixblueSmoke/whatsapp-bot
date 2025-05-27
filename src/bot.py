@@ -81,7 +81,7 @@ def bot_route():
             if button_id == "lang_ar":
                 set_user_language(user_number, "ar")
                 send_template(user_number, "HXb6ab46f20992895ce301faed42d813ec")
-                return jsonify({"status": "language set"}), 200
+                return jsonify({"status": "language set"}), 200   # <--- ADD THIS LINE
             elif button_id == "lang_en":
                 set_user_language(user_number, "en")
                 send_template(user_number, "HX1740c1806e8e58a8dbea6215db62def1")
