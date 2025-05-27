@@ -38,7 +38,7 @@ def send_language_selection_template(user_number):
     client.messages.create(
         from_='whatsapp:' + twilio_whatsapp_number,
         to='whatsapp:' + user_number,
-        content_sid='HX0d7a28a83f0ea0b36d480970c11bc977'
+        content_sid='HX73ad95be465c6583bc31c128dff1ad39'  # <-- put your new template SID here
     )
 
 def send_template(user_number, template_sid):
