@@ -74,6 +74,8 @@ def bot_route():
         incoming_text = data.get("Body", "").strip()
         user_lang = get_user_language(user_number)
 
+        print("Button ID received:", button_id)  # Debugging line
+
         if not user_lang:
             if button_id == "lang_ar":
                 set_user_language(user_number, "ar")
