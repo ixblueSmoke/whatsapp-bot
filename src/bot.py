@@ -77,7 +77,7 @@ def bot_route():
         print("📩 button_id received:", button_id)
 
         if not user_lang:
-            if button_id == "lang_ar":
+            if button_id == "ar_lang":
                 set_user_language(user_number, "ar")
                 send_template(user_number, "HXb6ab46f20992895ce301faed42d813ec")
                 return jsonify({"status": "language set"}), 200
@@ -90,11 +90,11 @@ def bot_route():
                 return jsonify({"status": "ask language"}), 200
 
         if button_id:
-            if button_id == "lang_ar":
+            if button_id == "ar_lang":
                 set_user_language(user_number, "ar")
                 send_template(user_number, "HXb6ab46f20992895ce301faed42d813ec")
                 return jsonify({"status": "language set"}), 200
-            elif button_id in ["lang_en", "english"]:
+            elif button_id in ["en_lang", "english"]:
                 set_user_language(user_number, "en")
                 send_template(user_number, "HX1740c1806e8e58a8dbea6215db62def1")
                 return jsonify({"status": "language set"}), 200
