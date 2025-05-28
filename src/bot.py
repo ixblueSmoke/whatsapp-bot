@@ -12,8 +12,8 @@ from db.language_context import get_user_language, set_user_language  # You need
 
 app = Flask(__name__)
 
-limiter = Limiter(key_func=get_remote_address, default_limits=["10 per minute"])
-limiter.init_app(app)
+# Correct Limiter initialization
+limiter = Limiter(app, key_func=get_remote_address, default_limits=["10 per minute"])
 
 logging.basicConfig(
     level=logging.INFO,
@@ -102,12 +102,30 @@ def bot_route():
             elif button_id == "support_ar":
                 send_text_reply(user_number, "☎️ للتواصل مع الدعم: 9200XXXXXX\n☎️ For support: +9669200XXXXXX")
                 return jsonify({"status": "support sent"}), 200
-            # Add more Arabic-specific catalog/product logic here...
-            # Example:
             elif button_id == "marbele_ar":
                 send_catalog(user_number, "https://yourdomain.com/static/SMA_Marble.pdf", "📎 كتالوج بديل الرخام")
                 return jsonify({"status": "catalog sent"}), 200
-            # ...etc...
+            elif button_id == "chipboard_ar":
+                send_catalog(user_number, "https://yourdomain.com/static/Chipboard_cat.pdf", "📎 كتالوج بديل الخشب")
+                return jsonify({"status": "catalog sent"}), 200
+            elif button_id == "3D_ar":
+                send_catalog(user_number, "https://yourdomain.com/static/Private_Sma_Cat.pdf", "📎 كتالوج الطباعة ثلاثية الأبعاد")
+                return jsonify({"status": "catalog sent"}), 200
+            elif button_id == "rizen_ar":
+                send_catalog(user_number, "https://yourdomain.com/static/R_SMA.pdf", "📎 كتالوج الريزين")
+                return jsonify({"status": "catalog sent"}), 200
+            elif button_id == "more_catalogs_ar":
+                send_template(user_number, "HX9f5f20bb8ef61d23d9b32afe1a242e90")
+                return jsonify({"status": "more catalogs sent"}), 200
+            elif button_id == "pu_ar":
+                send_catalog(user_number, "https://yourdomain.com/static/PU_stone.pdf", "📎 كتالوج بديل الحجر PU")
+                return jsonify({"status": "catalog sent"}), 200
+            elif button_id == "match_ar":
+                send_catalog(user_number, "https://yourdomain.com/static/OB_SMA.pdf", "📎 كتالوج الأوبن بوك")
+                return jsonify({"status": "catalog sent"}), 200
+            elif button_id == "profile_ar":
+                send_catalog(user_number, "https://yourdomain.com/static/profile_cat.pdf", "📎 كتالوج البروفايل")
+                return jsonify({"status": "catalog sent"}), 200
 
         elif user_lang == "en":
             # English flow
@@ -120,12 +138,33 @@ def bot_route():
             elif button_id == "support_en":
                 send_text_reply(user_number, "☎️ For support: +9669200XXXXXX")
                 return jsonify({"status": "support sent"}), 200
-            # Add more English-specific catalog/product logic here...
-            # Example:
             elif button_id == "marbele_en":
                 send_catalog(user_number, "https://yourdomain.com/static/catalog_marble.pdf", "📎 Marble Catalog")
                 return jsonify({"status": "catalog sent"}), 200
-            # ...etc...
+            elif button_id == "chipboard_en":
+                send_catalog(user_number, "https://yourdomain.com/static/catalog_wood.pdf", "📎 Wood Catalog")
+                return jsonify({"status": "catalog sent"}), 200
+            elif button_id == "profile_en":
+                send_catalog(user_number, "https://yourdomain.com/static/catalog_profile.pdf", "📎 Profile Catalog")
+                return jsonify({"status": "catalog sent"}), 200
+            elif button_id == "rizen_en":
+                send_catalog(user_number, "https://yourdomain.com/static/catalog_resin.pdf", "📎 Resin Catalog")
+                return jsonify({"status": "catalog sent"}), 200
+            elif button_id == "more_en":
+                send_template(user_number, "HX6842017435eb051255d2c21dd1471e64")
+                return jsonify({"status": "more catalogs sent"}), 200
+            elif button_id == "pu_stone":
+                send_catalog(user_number, "https://yourdomain.com/static/catalog_pustone.pdf", "📎 PU Stone Catalog")
+                return jsonify({"status": "catalog sent"}), 200
+            elif button_id == "match_en":
+                send_catalog(user_number, "https://yourdomain.com/static/catalog_openbook.pdf", "📎 Open Book Catalog")
+                return jsonify({"status": "catalog sent"}), 200
+            elif button_id == "3D_en":
+                send_catalog(user_number, "https://yourdomain.com/static/catalog_3dprint.pdf", "📎 3D Printer Catalog")
+                return jsonify({"status": "catalog sent"}), 200
+            elif button_id == "fallback_en":
+                send_template(user_number, "HXcfcc075b1f58ed102944c571beb068c0")
+                return jsonify({"status": "back to catalogs"}), 200
 
         # Fallback: If nothing matches, show language selection again
         send_language_selection_template(user_number)
