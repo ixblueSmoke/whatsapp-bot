@@ -76,51 +76,59 @@ def bot_route():
 
         print("📩 button_id received:", button_id)
 
+        # Step 1: Language selection (shared)
         if not user_lang:
             if button_id == "ar_lang":
                 set_user_language(user_number, "ar")
-                send_template(user_number, "HXb6ab46f20992895ce301faed42d813ec")
+                send_template(user_number, "HXb6ab46f20992895ce301faed42d813ec")  # Arabic main menu template
                 return jsonify({"status": "language set"}), 200
-            if button_id == ["en_lang", "english"]:
+            elif button_id == "en_lang":
                 set_user_language(user_number, "en")
-                send_template(user_number, "HX1740c1806e8e58a8dbea6215db62def1")
+                send_template(user_number, "HX1740c1806e8e58a8dbea6215db62def1")  # English main menu template
                 return jsonify({"status": "language set"}), 200
             else:
                 send_language_selection_template(user_number)
                 return jsonify({"status": "ask language"}), 200
-        if button_id:
-            if button_id == "ar_lang":
-                set_user_language(user_number, "ar")
-                send_template(user_number, "HXb6ab46f20992895ce301faed42d813ec")
-                return jsonify({"status": "language set"}), 200
-            if button_id in ["en_lang", "english"]:
-                set_user_language(user_number, "en")
-                send_template(user_number, "HX1740c1806e8e58a8dbea6215db62def1")
-                return jsonify({"status": "language set"}), 200
 
-            elif button_id == "catalog_ar":
+        # Step 2: Split flow by language
+        if user_lang == "ar":
+            # Arabic flow
+            if button_id == "catalog_ar":
                 send_template(user_number, "HXad63fa26ead4384c954e19572027a72b")
                 return jsonify({"status": "catalogs sent"}), 200
-            elif button_id == "catalog_en":
-                send_template(user_number, "HXcfcc075b1f58ed102944c571beb068c0")
-                return jsonify({"status": "catalogs sent"}), 200
-
             elif button_id == "branch_ar":
                 send_text_reply(user_number, "📍 الفروع: الرياض - جدة - الدمام")
                 return jsonify({"status": "branches sent"}), 200
-            elif button_id == "branch_en":
-                send_text_reply(user_number, "📍 Branches: Riyadh, Jeddah, Dammam")
-                return jsonify({"status": "branches sent"}), 200
-
             elif button_id == "support_ar":
                 send_text_reply(user_number, "☎️ للتواصل مع الدعم: 9200XXXXXX\n☎️ For support: +9669200XXXXXX")
                 return jsonify({"status": "support sent"}), 200
+            # Add more Arabic-specific catalog/product logic here...
+            # Example:
+            elif button_id == "marbele_ar":
+                send_catalog(user_number, "https://yourdomain.com/static/SMA_Marble.pdf", "📎 كتالوج بديل الرخام")
+                return jsonify({"status": "catalog sent"}), 200
+            # ...etc...
+
+        elif user_lang == "en":
+            # English flow
+            if button_id == "catalog_en":
+                send_template(user_number, "HXcfcc075b1f58ed102944c571beb068c0")
+                return jsonify({"status": "catalogs sent"}), 200
+            elif button_id == "branch_en":
+                send_text_reply(user_number, "📍 Branches: Riyadh, Jeddah, Dammam")
+                return jsonify({"status": "branches sent"}), 200
             elif button_id == "support_en":
                 send_text_reply(user_number, "☎️ For support: +9669200XXXXXX")
                 return jsonify({"status": "support sent"}), 200
+            # Add more English-specific catalog/product logic here...
+            # Example:
+            elif button_id == "marbele_en":
+                send_catalog(user_number, "https://yourdomain.com/static/catalog_marble.pdf", "📎 Marble Catalog")
+                return jsonify({"status": "catalog sent"}), 200
+            # ...etc...
 
-            # (بقية الكتالوجات والردود نفس كودك السابق)
-
+        # Fallback: If nothing matches, show language selection again
+        send_language_selection_template(user_number)
         return jsonify({"message": "No button detected"}), 200
 
     except Exception as e:
