@@ -81,7 +81,7 @@ def bot_route():
                 set_user_language(user_number, "ar")
                 send_template(user_number, "HXb6ab46f20992895ce301faed42d813ec")
                 return jsonify({"status": "language set"}), 200
-            elif button_id == ["en_lang", "english"]:
+            if button_id == ["en_lang", "english"]:
                 set_user_language(user_number, "en")
                 send_template(user_number, "HX1740c1806e8e58a8dbea6215db62def1")
                 return jsonify({"status": "language set"}), 200
@@ -93,7 +93,7 @@ def bot_route():
                 set_user_language(user_number, "ar")
                 send_template(user_number, "HXb6ab46f20992895ce301faed42d813ec")
                 return jsonify({"status": "language set"}), 200
-            elif button_id in ["en_lang", "english"]:
+            if button_id in ["en_lang", "english"]:
                 set_user_language(user_number, "en")
                 send_template(user_number, "HX1740c1806e8e58a8dbea6215db62def1")
                 return jsonify({"status": "language set"}), 200
