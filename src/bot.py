@@ -13,7 +13,8 @@ from db.language_context import get_user_language, set_user_language  # You need
 app = Flask(__name__)
 
 # Correct Limiter initialization
-limiter = Limiter(app, key_func=get_remote_address, default_limits=["10 per minute"])
+limiter = Limiter(key_func=get_remote_address, default_limits=["10 per minute"])
+limiter.init_app(app)
 
 logging.basicConfig(
     level=logging.INFO,
