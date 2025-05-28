@@ -1,10 +1,8 @@
-#language_context.py
+# db/language_context.py
+user_lang_store = {}
 
-# Simple in-memory storage for demonstration; replace with persistent storage as needed.
-_user_languages = {}
+def set_user_language(user_number, lang):
+    user_lang_store[user_number] = lang
 
 def get_user_language(user_number):
-    return _user_languages.get(user_number)
-
-def set_user_language(user_number, language):
-    _user_languages[user_number] = language
+    return user_lang_store.get(user_number)
