@@ -1,18 +1,10 @@
-import sqlite3
+#language_context.py
 
-DB_PATH = "user_lang.db"
-
-def set_user_language(user_number, lang):
-    with sqlite3.connect(DB_PATH) as conn:
-        c = conn.cursor()
-        c.execute("CREATE TABLE IF NOT EXISTS user_lang (user TEXT PRIMARY KEY, lang TEXT)")
-        c.execute("INSERT OR REPLACE INTO user_lang (user, lang) VALUES (?, ?)", (user_number, lang))
-        conn.commit()
+# Simple in-memory storage for demonstration; replace with persistent storage as needed.
+_user_languages = {}
 
 def get_user_language(user_number):
-    with sqlite3.connect(DB_PATH) as conn:
-        c = conn.cursor()
-        c.execute("CREATE TABLE IF NOT EXISTS user_lang (user TEXT PRIMARY KEY, lang TEXT)")
-        c.execute("SELECT lang FROM user_lang WHERE user = ?", (user_number,))
-        row = c.fetchone()
-        return row[0] if row else None
+    return _user_languages.get(user_number)
+
+def set_user_language(user_number, language):
+    _user_languages[user_number] = language
