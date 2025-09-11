@@ -2,3 +2,8 @@ venv/
 bot.log
 employees.db
 __pycache__/
+venv/
+bot.log
+employees.db
+__pycache__/
+.vscode/
