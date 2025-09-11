@@ -1,0 +1,4 @@
+venv/
+bot.log
+employees.db
+__pycache__/
